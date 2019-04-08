@@ -10,3 +10,17 @@ if (toCompVec([0, 0, 1])[2] > 0 ) {
   0 
 }
 ```
+
+### Get sizes of layer
+Get size of text layer.
+```
+thisComp.layer("My Text Layer").sourceRectAtTime().width;
+thisComp.layer("My Text Layer").sourceRectAtTime().height;
+```
+
+### Select sibling 
+Get sibling of current layer.
+```
+olderSibling = thisComp.layer(index - 1);
+youngerSibling = thisComp.layer(index + 1);
+```
