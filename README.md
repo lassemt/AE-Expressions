@@ -41,6 +41,7 @@ sAnchorX = sLeft + (sWidth/2); // more or less the same just for the horizontal 
 ```
 
 ### Calucalte size of path
+Note: this don't include tangents.
 ```
 let xs = [];
 let ys = [];
@@ -50,7 +51,6 @@ let ys = [];
 	ys.push(p[1])
 });
 
-// calc the min and max lng and lat
 const minX = Math.min(...xs);
 const maxX = Math.max(...xs);
 const minY = Math.min(...ys);
