@@ -39,3 +39,23 @@ sAnchorX = sLeft + (sWidth/2); // more or less the same just for the horizontal 
 
 [sAnchorX, sAnchorY] // actually putting all the end value to the value of the anchor point of the layer
 ```
+
+### Calucalte size of path
+```
+let xs = [];
+let ys = [];
+
+[...thisComp.layer("TEST").content("face").content("mouth").content("lipLower").path.points(), ...thisComp.layer("TEST").content("face").content("mouth").content("lipUpper").path.points()].forEach(p => {
+	xs.push(p[0]);
+	ys.push(p[1])
+});
+
+// calc the min and max lng and lat
+const minX = Math.min(...xs);
+const maxX = Math.max(...xs);
+const minY = Math.min(...ys);
+const maxY = Math.max(...ys);
+
+const width = maxX - minX;
+const height = maxY - minY;
+```
