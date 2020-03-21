@@ -43,19 +43,24 @@ sAnchorX = sLeft + (sWidth/2); // more or less the same just for the horizontal 
 ### Calucalte size of path
 Note: this don't include tangents.
 ```
-let xs = [];
-let ys = [];
+function pathBounds(points) {
+	let minX = points[0][0], 
+		minY = points[0][1], 
+		maxX = points[0][0], 
+		maxY = points[0][1];
+	
+	points.forEach(p => {
+		minX = Math.min(minX, p[0]);
+		maxX = Math.max(maxX, p[0]);
+		minY = Math.min(minY, p[1]);
+		maxY = Math.max(maxY, p[1]);
+	});
 
-[...thisComp.layer("TEST").content("face").content("mouth").content("lipLower").path.points(), ...thisComp.layer("TEST").content("face").content("mouth").content("lipUpper").path.points()].forEach(p => {
-	xs.push(p[0]);
-	ys.push(p[1])
-});
+	return {
+		width: maxX - minX,
+		height: maxY - minY
+	}
+}
 
-const minX = Math.min(...xs);
-const maxX = Math.max(...xs);
-const minY = Math.min(...ys);
-const maxY = Math.max(...ys);
-
-const width = maxX - minX;
-const height = maxY - minY;
+const test = pathBounds([...thisComp.layer("TEST").content("face").content("mouth").content("lipLower").path.points(), ...thisComp.layer("TEST").content("face").content("mouth").content("lipUpper").path.points()]);
 ```
