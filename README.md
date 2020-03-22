@@ -41,7 +41,7 @@ sAnchorX = sLeft + (sWidth/2); // more or less the same just for the horizontal 
 ```
 
 ### Calucalte size of path
-Note: this don't include tangents.
+Note: this don't include tangents. And Bodymovin is not supporting es6+.
 ```
 function pathBounds(points) {
 	let minX = points[0][0], 
