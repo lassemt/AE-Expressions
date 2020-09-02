@@ -64,3 +64,47 @@ function pathBounds(points) {
 
 const test = pathBounds([...thisComp.layer("TEST").content("face").content("mouth").content("lipLower").path.points(), ...thisComp.layer("TEST").content("face").content("mouth").content("lipUpper").path.points()]);
 ```
+
+### Typewriter smooth text center
+TODO: Description
+```
+TRANSITION_DURATION = 0.5;
+TIME_OFFSET = 0.25;
+
+self = thisLayer;
+sourceText = self.text.sourceText;
+timeWithOffset = time + TIME_OFFSET;
+
+x = value[0];
+
+// If has keyframes
+if (sourceText.numKeys > 0) {
+  closestKeyframe = sourceText.nearestKey(timeWithOffset).index;
+
+  // If keyframe is in future
+  if (timeWithOffset < sourceText.key(closestKeyframe).time) {
+    // Get to previous frame
+    closestKeyframe--;
+  }
+
+  // If has close frame
+  if (closestKeyframe > 0) {
+
+    // Frame is not first
+    if (closestKeyframe > 1) {
+
+      prevKeyframeTime = sourceText.key(closestKeyframe - 1).time;
+      currentKeyframeTime = sourceText.key(closestKeyframe).time;
+
+      prevWidth = self.sourceRectAtTime(prevKeyframeTime, false).width;
+      currentWidth = self.sourceRectAtTime(currentKeyframeTime,false).width;
+
+      x = (x - ease(timeWithOffset, currentKeyframeTime, currentKeyframeTime + TRANSITION_DURATION, prevWidth, currentWidth)) / 2;
+    } else {
+      x = (x - self.sourceRectAtTime(timeWithOffset, false).width) / 2;
+    }
+  }
+}
+
+[x, value[1]]
+```
